@@ -1,0 +1,2 @@
+Download this file and put it in this folder
+https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/content/2018/en/en_full.txt
