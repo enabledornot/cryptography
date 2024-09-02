@@ -20,7 +20,7 @@ def handle_input(input):
 def v_decode(codeword, e_message):
     d_message = ""
     for i in range(len(e_message)):
-        new_num = (char_to_num(codeword[i % len(codeword)]) - char_to_num(e_message[i])) % 26
+        new_num = (char_to_num(e_message[i]) - char_to_num(codeword[i % len(codeword)])) % 26
         d_message+=num_to_chr(new_num)
     return d_message
 def v_encode(codeword, d_message):
