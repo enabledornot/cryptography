@@ -29,7 +29,14 @@ def v_encode(codeword, d_message, cesar=0, word_off=0):
         new_num = (char_to_num(codeword[(i + word_off) % len(codeword)]) + char_to_num(d_message[i]) + cesar) % 26
         e_message+=num_to_chr(new_num)
     return e_message
-def v_guess_length()
+def v_guess_length(message):
+    cycles = [0]
+    for offset in range(1,len(message)):
+        cycles.append(0)
+        for ii in range(0, len(message) - offset):
+            if message[ii] == message[offset+ii]:
+                cycles[-1] += 1
+    return cycles.index(max(cycles)), cycles
 if __name__ == "__main__":
     if len(sys.argv) == 4:
         message = handle_input(sys.argv[2])
@@ -50,8 +57,17 @@ if __name__ == "__main__":
     elif len(sys.argv) == 3:
         message = handle_input(sys.argv[2])
         if sys.argv[1] == 'cw_len':
-            result = v_guess_length(message)
-            print("guessed codeword length: {}".format(result))
+            keyword_len, cycles = v_guess_length(message)
+            print("guessed codeword length: {}".format(keyword_len))
+            print("offset - duplicate count")
+            for i, cycle in enumerate(cycles):
+                if i == 0:
+                    continue
+                if max(cycles) == cycle:
+                    print("\033[1m",end="")
+                print("{:2} - {}".format(i,cycle))
+                if max(cycles) == cycle:
+                    print("\033[0m",end="")
     else:
         print("invalid command format")
         print("python vigenere.py <encode:decode> <message_or_filename_of_message> <codeword_or_filename_of_codeword>")
