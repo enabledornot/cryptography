@@ -1,4 +1,5 @@
 import string
+import textwrap
 def clean_text(text):
     return ''.join(char for char in text.lower() if char.isalpha()).replace('j','i')
 def handle_input(input):
@@ -7,6 +8,8 @@ def handle_input(input):
             return f.read()
     except:
         return input
+def split_segment(str,len):
+    return textwrap.wrap(str, width=len)
 class Polybius:
     def __init__(self, codeword):
         codeword = clean_text(codeword)
